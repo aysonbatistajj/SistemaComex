@@ -1,92 +1,96 @@
-﻿string mensagemBoasVindas = "Seja Bem Vindo(a) ao SISTEMA COMEX";
-
-Dictionary<string, int> produtos = new Dictionary<string, int>();
+﻿string mensagemBoasVindas = "Sejam bem vindos ao Sistema Comex";
+List<Produto> produtos = new List<Produto>();
 
 void Menu()
 {
-    int controle = -1;
-    while (controle != 0)
-    {
-        Console.WriteLine($"\n------------- {mensagemBoasVindas} -------------\n");
-        Console.WriteLine("Escolha uma das opções abaixo:");
-        Console.WriteLine("1 - Ver produtos em estoque");
-        Console.WriteLine("2 - Adicionar um produto");
-        Console.WriteLine("0 - sair\n");
-        Console.Write("Resposta: ");
-        controle = int.Parse(Console.ReadLine()!);
 
-        switch (controle)
-        {
-            case 1:
-                LimparConsoleAdicionarTitulo("Estoque de Produtos");
-                ListarProdutos();
-                LimparConsole();
-                break;
-            case 2:
-                LimparConsoleAdicionarTitulo("Adicionar novo produto");
-                AdicionarProduto();
-                LimparConsole();
-                break;
-            case 0:
-                Console.WriteLine("Saindo... tchau tchau <3");
-                break;
-            default:
-                Console.WriteLine("Opção Inválida...");
-                LimparConsole();
-                break;
-        }
+    Console.WriteLine(@"
+░█████╗░░█████╗░███╗░░░███╗███████╗██╗░░██╗
+██╔══██╗██╔══██╗████╗░████║██╔════╝╚██╗██╔╝
+██║░░╚═╝██║░░██║██╔████╔██║█████╗░░░╚███╔╝░
+██║░░██╗██║░░██║██║╚██╔╝██║██╔══╝░░░██╔██╗░
+╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗██╔╝╚██╗
+░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚═╝");
+
+    Console.WriteLine("\n" + mensagemBoasVindas);
+    Console.WriteLine("\n1 - Criar Produto.");
+    Console.WriteLine("2 - Listar Produtos.");
+    Console.WriteLine("-1 - Sair.");
+    Console.Write("\nDigite a opção desejada: ");
+    string opcaoEscolhida = Console.ReadLine()!;
+    int opcaoEscolhidaNumerica = int.Parse(opcaoEscolhida);
+
+    switch (opcaoEscolhidaNumerica)
+    {
+        case 1: CadastrarProduto(); break;
+        case 2: ListarProdutos(); break;
+        case -1: Console.WriteLine("Obrigado por Utilizar"); break;
+        default: Console.WriteLine("Opção Inválida"); Thread.Sleep(1000); Console.Clear(); Menu(); break;
     }
 }
-void AdicionarProduto()
+
+void CadastrarProduto()
 {
-    Console.Write("Qual produto você quer cadastrar?: ");
-    string nome = Console.ReadLine()!;
+    Console.Clear();
+    ExibirTitulo("Cadastrar Produtos");
 
-    Console.Write("\nInforme a quantidade disponível desse produto: ");
-    int quantidade = int.Parse(Console.ReadLine()!);
+    Console.Write("Insira o nome do produto: ");
+    string nomeProduto = Console.ReadLine()!;
 
-    if (nome == "")
+    Console.Write("Digite o Preço Unitário: ");
+    string preco = Console.ReadLine()!;
+    double precoConvertido;
+    double.TryParse(preco, out precoConvertido);
+
+    Console.Write("Digite a Quantidade em Estoque: ");
+    string quantidade = Console.ReadLine()!;
+    int quantidadeConvertida = int.Parse(quantidade);
+
+
+    Produto produto = new Produto(nomeProduto, precoConvertido)
     {
-        Console.WriteLine("Digite um nome válido");
-    }
-    else if (quantidade < 0)
-    {
-        Console.WriteLine("Digite uma quantidade válida");
-    }
-    else
-    {
-        produtos.Add(nome, quantidade);
-        Console.WriteLine($"\nProduto {nome} com a quantidade {quantidade} adicionado ao estoque com sucesso!");
-    }
+        Quantidade = quantidadeConvertida
+    };
+
+    produtos.Add(produto);
+
+    Console.WriteLine($"\nO Produto {nomeProduto} Cadastrado com Sucesso!");
+    Thread.Sleep(3000);
+    Console.Clear();
+    Menu();
 
 }
 
 void ListarProdutos()
 {
-    foreach (var produto in produtos)
-    {
-        Console.WriteLine($"\nNome: {produto.Key}");
-        Console.WriteLine($"Quantidade: {produto.Value}\n");
-    }
+    Console.Clear();
+    ExibirTitulo("Lista de Produtos");
 
     if (produtos.Count == 0)
     {
-        Console.WriteLine("Nenhum produto cadastrado!");
+        Console.WriteLine("Nenhum produto cadastrado");
+        Thread.Sleep(2000);
+        Console.Clear();
+        Menu();
+    }
+    else
+    {
+        foreach (var produto in produtos)
+        {
+            Console.WriteLine(produto.Descricao);
+        }
+
     }
 }
 
-void LimparConsoleAdicionarTitulo(string titulo)
+void ExibirTitulo(string titulo)
 {
-    Thread.Sleep(1000);
-    Console.Clear();
-    mensagemBoasVindas = titulo;
-    Console.WriteLine($"\n------------- {mensagemBoasVindas} -------------\n");
-}
-void LimparConsole()
-{
-    Thread.Sleep(5000);
-    Console.Clear();
-    mensagemBoasVindas = "SISTEMA COMEX";
+    int tamTitulo = titulo.Length;
+    string asteriscos = "" + String.Empty.PadRight(tamTitulo, '*');
+    Console.WriteLine(asteriscos);
+    Console.WriteLine(titulo);
+    Console.WriteLine(asteriscos);
+    Console.WriteLine("");
 }
 
 Menu();
