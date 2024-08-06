@@ -1,10 +1,24 @@
-﻿string mensagemBoasVindas = "Sejam bem vindos ao Sistema Comex";
-List<Produto> produtos = new List<Produto>();
+﻿using SistemaComex.Menus;
+using SistemaComex.Modelos;
+using System.Net;
 
-void Menu()
+internal class Program
 {
+    private static void Main(string[] args)
+    {
+        string mensagemBoasVindas = "Sejam Bem Vindos ao Comex";
+        List<Produto> produtos = new List<Produto>();
+        Dictionary<int, Menu> opcoes = new();
+        opcoes.Add(1, new MenuCadastrarProduto());
+        opcoes.Add(2, new MenuListarProdutos());
+        opcoes.Add(3, new MenuOrdernarPorTitulo());
+        opcoes.Add(4, new MenuOrdernarPorPreco());
 
-    Console.WriteLine(@"
+
+        void ExibirMenu()
+        {
+
+            Console.WriteLine(@"
 ░█████╗░░█████╗░███╗░░░███╗███████╗██╗░░██╗
 ██╔══██╗██╔══██╗████╗░████║██╔════╝╚██╗██╔╝
 ██║░░╚═╝██║░░██║██╔████╔██║█████╗░░░╚███╔╝░
@@ -12,85 +26,29 @@ void Menu()
 ╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗██╔╝╚██╗
 ░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚═╝");
 
-    Console.WriteLine("\n" + mensagemBoasVindas);
-    Console.WriteLine("\n1 - Criar Produto.");
-    Console.WriteLine("2 - Listar Produtos.");
-    Console.WriteLine("-1 - Sair.");
-    Console.Write("\nDigite a opção desejada: ");
-    string opcaoEscolhida = Console.ReadLine()!;
-    int opcaoEscolhidaNumerica = int.Parse(opcaoEscolhida);
+            Console.WriteLine("\n" + mensagemBoasVindas);
+            Console.WriteLine("\n1 - Criar Produto.");
+            Console.WriteLine("2 - Listar Produtos.");
+            Console.WriteLine("3 - Ordernar Produtos por Titulo.");
+            Console.WriteLine("4 - Ordernar Produtos por Preço.");
+            Console.WriteLine("-1 - Sair.");
+            Console.Write("\nDigite a opção desejada: ");
+            string opcaoEscolhida = Console.ReadLine()!;
+            int opcaoEscolhidaNumerica = int.Parse(opcaoEscolhida);
 
-    switch (opcaoEscolhidaNumerica)
-    {
-        case 1: CadastrarProduto(); break;
-        case 2: ListarProdutos(); break;
-        case -1: Console.WriteLine("Obrigado por Utilizar"); break;
-        default: Console.WriteLine("Opção Inválida"); Thread.Sleep(1000); Console.Clear(); Menu(); break;
-    }
-}
+            if (opcaoEscolhidaNumerica > 0)
+            {
+                Menu menu = opcoes[opcaoEscolhidaNumerica];
+                menu.Executar(produtos);
+                ExibirMenu();
+            }
+            else
+            {
+                Console.WriteLine("Tchau!");
+            }
 
-void CadastrarProduto()
-{
-    Console.Clear();
-    ExibirTitulo("Cadastrar Produtos");
-
-    Console.Write("Insira o nome do produto: ");
-    string nomeProduto = Console.ReadLine()!;
-
-    Console.Write("Digite o Preço Unitário: ");
-    string preco = Console.ReadLine()!;
-    double precoConvertido;
-    double.TryParse(preco, out precoConvertido);
-
-    Console.Write("Digite a Quantidade em Estoque: ");
-    string quantidade = Console.ReadLine()!;
-    int quantidadeConvertida = int.Parse(quantidade);
-
-
-    Produto produto = new Produto(nomeProduto, precoConvertido)
-    {
-        Quantidade = quantidadeConvertida
-    };
-
-    produtos.Add(produto);
-
-    Console.WriteLine($"\nO Produto {nomeProduto} Cadastrado com Sucesso!");
-    Thread.Sleep(3000);
-    Console.Clear();
-    Menu();
-
-}
-
-void ListarProdutos()
-{
-    Console.Clear();
-    ExibirTitulo("Lista de Produtos");
-
-    if (produtos.Count == 0)
-    {
-        Console.WriteLine("Nenhum produto cadastrado");
-        Thread.Sleep(2000);
-        Console.Clear();
-        Menu();
-    }
-    else
-    {
-        foreach (var produto in produtos)
-        {
-            Console.WriteLine(produto.Descricao);
         }
 
+        ExibirMenu();
     }
 }
-
-void ExibirTitulo(string titulo)
-{
-    int tamTitulo = titulo.Length;
-    string asteriscos = "" + String.Empty.PadRight(tamTitulo, '*');
-    Console.WriteLine(asteriscos);
-    Console.WriteLine(titulo);
-    Console.WriteLine(asteriscos);
-    Console.WriteLine("");
-}
-
-Menu();

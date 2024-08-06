@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TarefaLista", "TarefaLista\TarefaLista.csproj", "{4E438160-B36E-4F7C-BA65-2030673CEB67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaComex", "TarefaLista\SistemaComex.csproj", "{4E438160-B36E-4F7C-BA65-2030673CEB67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

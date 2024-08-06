@@ -1,4 +1,6 @@
-﻿class Produto
+﻿namespace SistemaComex.Modelos;
+
+public class Produto
 {
     public Produto(string nome, double preco)
     {

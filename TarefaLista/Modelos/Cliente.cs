@@ -1,4 +1,6 @@
-﻿class Cliente
+﻿namespace SistemaComex.Modelos;
+
+internal class Cliente : IIdentificacao
 {
 
     public Cliente(string nome)
@@ -11,4 +13,5 @@
     public string Telefone { get; set; }
     public Endereco Endereco { get; set; }
 
+    public string Identificacao => $"Nome: {Nome} | CPF: {CPF}";
 }

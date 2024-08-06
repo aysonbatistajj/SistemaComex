@@ -1,4 +1,6 @@
-﻿class Endereco
+﻿namespace SistemaComex.Modelos;
+
+public class Endereco
 {
     public string Bairro { get; set; }
     public string Cidade { get; set; }
