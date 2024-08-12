@@ -3,7 +3,6 @@
 namespace SistemaComex.Menus;
 internal class MenuListarProdutos : Menu
 {
-
     public override void Executar(List<Produto> produtos)
     {
         base.Executar(produtos);
