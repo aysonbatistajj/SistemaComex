@@ -15,6 +15,6 @@ internal class Produto
     public string Descricao => $"{Nome} | Preço: R${PrecoUnitario} e Possui {Quantidade} em Estoque";
 
     [JsonPropertyName("price")]
-    public double PrecoUnitario { get; set; }
+    public decimal PrecoUnitario { get; set; }
     public int Quantidade { get; set; }
 }

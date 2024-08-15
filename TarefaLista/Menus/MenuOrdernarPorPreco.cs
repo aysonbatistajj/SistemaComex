@@ -3,15 +3,12 @@
 namespace SistemaComex.Menus;
 internal class MenuOrdernarPorPreco : Menu
 {
-
     public override void Executar(List<Produto> produtos)
     {
         base.Executar(produtos);
 
         base.Executar(produtos);
         ExibirTitulo("Produtos Ordenados por Preço");
-
-
 
         var produtosOrdenadosPorPreco =
             from produto in produtos
@@ -27,5 +24,4 @@ internal class MenuOrdernarPorPreco : Menu
         Console.ReadKey();
         Console.Clear();
     }
-
 }
